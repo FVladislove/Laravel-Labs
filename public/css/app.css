@@ -4,3 +4,6 @@
 .bg-around-purple{
     background-color: purple;
 }
+.table-container{
+    align-items: flex-start;
+}

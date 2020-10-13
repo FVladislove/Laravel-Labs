@@ -12,12 +12,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', "App\\Http\\Controllers\\PagesController@home");
+Route::get('/', 'App\\Http\\Controllers\\PagesController@home');
 
-Route::get('/about', "App\\Http\\Controllers\\PagesController@about");
+Route::get('/about', 'App\\Http\\Controllers\\PagesController@about');
 
-Route::get('/personalArea', "App\\Http\\Controllers\\PagesController@personalArea");
+Route::get('/personalArea', 'App\\Http\\Controllers\\PagesController@personalArea');
 
 Route::get('/books', 'App\Http\Controllers\BooksController@booksView');
 
-Route::get('/books/create', '\App\Http\Controllers\BooksController@createBook');
+Route::get('/books/createBook', '\App\Http\Controllers\BooksController@createBook');
+
+Route::post('/books', '\App\Http\Controllers\BooksController@store');
+
+Route::get('/books/{id}/edit', "\App\Http\Controllers\BooksController@edit");
+
+Route::patch('/books/{id}', '\App\Http\Controllers\BooksController@update');

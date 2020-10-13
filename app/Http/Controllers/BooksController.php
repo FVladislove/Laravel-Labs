@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use function GuzzleHttp\Psr7\str;
 
 class BooksController extends Controller
 {
@@ -14,7 +15,6 @@ class BooksController extends Controller
             return $book;
         };
         $books = \App\Models\Book::all()->sortBy("title");
-
         return view("/books", [
             "books" => $books,
             'pageTitle' => "Books"
@@ -22,6 +22,37 @@ class BooksController extends Controller
     }
 
     public function createBook(){
-        return view('/books/create');
+        return view('/books/createBook');
+    }
+
+    public function store(){
+        $book = new Book();
+        $book->title = \request('bookTitle');
+        $book->authorId = 1; //$book->getAuthorByName(\request('authorName'))['id'];
+        $book->datePublished = \request('datePublished');
+        $book->genreId = 1; //$book->getGenreByName(\request('genreName'))['id'];
+        $book->save();
+
+        return redirect('/books');
+    }
+
+    public function edit(int $id){
+        $book = Book::all()->firstWhere('id', $id);
+        return view('books/edit',[
+            'book' => $book,
+            ]
+        );
+    }
+
+    public function update($id){
+        $book = Book::all()->firstWhere('id', $id);
+
+        $book->title = \request('bookTitle');
+        $book->authorId = 2;
+        $book->datePublished = \request('datePublished');
+        $book->genreId = 2;
+
+        $book->save();
+        return redirect('/books');
     }
 }

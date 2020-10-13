@@ -16,8 +16,16 @@ class Book extends Model
         return Author::all()->firstWhere('id', $authorId);
     }
 
+    public function getAuthorByName(string $authorName){
+        return Author::all()->firstWhere('name', $authorName);
+    }
+
     public function getGenreById(int $genreId){
         return Genre::all()->firstWhere('id', $genreId);
+    }
+
+    public function getGenreByName(string $genreName){
+        return Genre::all()->firstWhere('name', $genreName);
     }
     use HasFactory;
 }
